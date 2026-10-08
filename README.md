@@ -1,59 +1,41 @@
-# TaskManagerApp
+# Task Manager App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
+A small task manager built with Angular for the Edureka "Getting Started with Angular" course project on Coursera. You can create, view, update and delete tasks.
 
-## Development server
+## What it does
 
-To start a local development server, run:
+- **Create** a task with an ID, title, description, due date and priority
+- **View** all tasks in a table, with search and a status filter
+- **Update** a task from the list
+- **Delete** a task, with a confirmation first
 
-```bash
+Tasks are saved in the browser (localStorage), so they are still there after a refresh. There is no backend.
+
+## Run it
+
+You need Node.js and the Angular CLI (`npm install -g @angular/cli`).
+
+```
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open http://localhost:4200.
 
-## Code scaffolding
+## Tests
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Where things are
 
-For end-to-end (e2e) testing, run:
+Everything is under `src/app`:
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `components/` has the four pages (create, view, update, delete)
+- `services/task.ts` holds the tasks and saves them
+- `models/task.model.ts` defines what a task looks like
+- `pipes/` formats dates and priorities
+- `directives/overdue.ts` highlights late tasks
+- `guards/task-exists-guard.ts` sends you back to the list if you open a task that doesn't exist
+- `app.routes.ts` lists the pages and their URLs
