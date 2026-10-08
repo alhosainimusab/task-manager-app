@@ -1,0 +1,53 @@
+<div class="card">
+  <h2>Create Task</h2>
+
+  <form #f="ngForm" (ngSubmit)="create()">
+    <div class="form-group">
+      <label for="id">Task ID</label>
+      <input id="id" name="id" type="number" min="1" required [(ngModel)]="id" />
+      @if (idTaken) {
+        <div class="error">ID {{ id }} is already used.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" name="title" required maxlength="100" [(ngModel)]="title" #titleCtl="ngModel" />
+      @if (titleCtl.invalid && titleCtl.touched) {
+        <div class="error">Title is required.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3" required maxlength="500"
+        [(ngModel)]="description" #descCtl="ngModel"></textarea>
+      @if (descCtl.invalid && descCtl.touched) {
+        <div class="error">Description is required.</div>
+      }
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input id="dueDate" name="dueDate" type="date" required [(ngModel)]="dueDate" #dateCtl="ngModel" />
+        @if (dateCtl.invalid && dateCtl.touched) {
+          <div class="error">Due date is required.</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority" [(ngModel)]="priority">
+          @for (p of priorities; track p) {
+            <option [value]="p">{{ p }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="submit" [disabled]="f.invalid || idTaken">Create Task</button>
+      <button class="btn btn-secondary" type="button" (click)="reset(f)">Reset</button>
+    </div>
+  </form>
+</div>

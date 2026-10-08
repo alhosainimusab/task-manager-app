@@ -1,0 +1,30 @@
+<h2 class="title">Delete Unwanted Tasks</h2>
+
+<div class="card">
+  @if (message()) {
+    <div class="alert alert-success">{{ message() }}</div>
+  }
+
+  @if (taskService.tasks().length) {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>TaskID</th><th>Title</th><th>Description</th><th>Due Date</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          @for (t of taskService.tasks(); track t.id) {
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.title }}</td>
+              <td>{{ t.description }}</td>
+              <td>{{ t.dueDate | dateFormat }}</td>
+              <td><button class="btn btn-delete" type="button" (click)="remove(t)">Delete</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="empty">Nothing left to delete. <a routerLink="/create">Create a task</a>.</p>
+  }
+</div>

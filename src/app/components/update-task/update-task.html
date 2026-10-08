@@ -1,0 +1,75 @@
+<h2>Update Tasks</h2>
+
+<div class="card">
+  @if (taskService.tasks().length) {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>TaskID</th><th>Title</th><th>Description</th><th>Due Date</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          @for (t of taskService.tasks(); track t.id) {
+            <tr [class.selected]="draft?.id === t.id">
+              <td>{{ t.id }}</td>
+              <td>{{ t.title }}</td>
+              <td>{{ t.description }}</td>
+              <td>{{ t.dueDate | dateFormat }}</td>
+              <td><a class="btn btn-edit" [routerLink]="['/update', t.id]">Edit</a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="empty">No tasks to update. <a routerLink="/create">Create one</a>.</p>
+  }
+</div>
+
+@if (draft) {
+  <div class="card">
+    <h2>Update Task #{{ draft.id }}</h2>
+    <form #f="ngForm" (ngSubmit)="update()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" name="title" required maxlength="100" [(ngModel)]="draft.title" #titleCtl="ngModel" />
+        @if (titleCtl.invalid && titleCtl.touched) {
+          <div class="error">Title is required.</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3" required maxlength="500"
+          [(ngModel)]="draft.description" #descCtl="ngModel"></textarea>
+        @if (descCtl.invalid && descCtl.touched) {
+          <div class="error">Description is required.</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input id="dueDate" name="dueDate" type="date" required [(ngModel)]="draft.dueDate" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status" [(ngModel)]="draft.status">
+            @for (s of statuses; track s) {
+              <option [value]="s">{{ s }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority" [(ngModel)]="draft.priority">
+            @for (p of priorities; track p) {
+              <option [value]="p">{{ p }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" [disabled]="f.invalid">Update</button>
+        <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+}

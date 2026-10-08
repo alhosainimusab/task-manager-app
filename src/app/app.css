@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.25rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--green);
+}
+.navbar a { color: #fff; text-decoration: none; padding: 0.25rem 0.5rem; border-radius: 4px; }
+.navbar a:hover { background: rgba(255, 255, 255, 0.15); }
+.navbar a.active { background: rgba(255, 255, 255, 0.25); font-weight: 600; }
+.navbar .brand { font-weight: 700; font-size: 1.1rem; margin-right: 1rem; }
+.page { max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
